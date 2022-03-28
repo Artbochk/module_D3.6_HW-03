@@ -1,0 +1,29 @@
+{% extends 'flatpages/default.html'%}
+
+{% load custom_filters %}
+
+{% block title %}
+news
+{% endblock title %}
+
+{% block content %}
+    <h1>Все новости</h1>
+    <table>
+           <tr>
+               <td>Дата публикации</td>
+               <td>Название статьи</td>
+               <td>Начало статьи</td>
+           </tr>
+
+           {% for article in articles %}
+           <tr>
+               <td>{{ article.news_data}}</td>
+               <td>{{ article.name|censor}}</td>
+                <!-- Добавим специальный фильтр truncatechars,
+                чтобы ограничить количество символов до 15.
+                Все остальные символы превратятся в многоточие. -->
+               <td>{{article.news_text|truncatechars:20|censor}}</td>
+           </tr>
+           {% endfor %}
+       </table>
+{% endblock content %}
